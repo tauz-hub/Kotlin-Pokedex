@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.tauasanto.pokedexandroidkotlin.R
 import br.com.tauasanto.pokedexandroidkotlin.domain.PokemonArrays
+import com.bumptech.glide.Glide
 
 class PokemonAdapter(
-    private val pokemonsList: List<PokemonArrays>
+    private val pokemonsList: List<PokemonArrays?>
 
 ) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,25 +29,31 @@ class PokemonAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(pokemon: PokemonArrays) = with(itemView) {
-            val tvPokemon = findViewById<ImageView>(R.id.ivPokemon)
+        fun bindView(pokemon: PokemonArrays?) = with(itemView) {
+            val ivPokemon = findViewById<ImageView>(R.id.ivPokemon)
             val tvNumber = findViewById<TextView>(R.id.tvNumber)
             val tvName = findViewById<TextView>(R.id.tvName)
             val tvType1 = findViewById<TextView>(R.id.tvType1)
             val tvType2 = findViewById<TextView>(R.id.tvType2)
 
             //TODO: load image with glide
+            pokemon?.let {
+                Glide.with(itemView.context).load(it.imageUrl).into(ivPokemon)
 
-            tvNumber.text = "N° ${pokemon.formattedNumber}"
-            tvName.text = pokemon.name
-            tvType1.text = pokemon.types[0].name
 
-            if (pokemon.types.size > 1) {
-                tvType2.visibility = View.VISIBLE
-                tvType2.text = pokemon.types[1].name
-            } else {
-                tvType2.visibility = View.GONE
+                tvNumber.text = "N° ${pokemon.formattedNumber}"
+                tvName.text = pokemon.name
+                tvType1.text = pokemon.types[0].name
+
+                if (pokemon.types.size > 1) {
+                    tvType2.visibility = View.VISIBLE
+                    tvType2.text = pokemon.types[1].name
+                } else {
+                    tvType2.visibility = View.GONE
+                }
             }
+
+
         }
 
 

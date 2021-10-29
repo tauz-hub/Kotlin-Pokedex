@@ -1,5 +1,6 @@
 package br.com.tauasanto.pokedexandroidkotlin.api.model
 
+import br.com.tauasanto.pokedexandroidkotlin.domain.PokemonArrays
 import br.com.tauasanto.pokedexandroidkotlin.domain.PokemonType
 
 data class PokemonsApiResult(
@@ -16,8 +17,11 @@ data class PokemonResult(
 
 data class PokemonApiResult(
     val name: String,
-    val types: PokemonTypeSlot
-)
+    val types: List<PokemonTypeSlot>,
+    val id: Int
+) {
+
+}
 
 data class PokemonTypeSlot (
     val slot: Int,

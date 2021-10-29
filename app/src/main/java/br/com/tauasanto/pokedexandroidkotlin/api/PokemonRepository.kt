@@ -19,31 +19,22 @@ object PokemonRepository {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-      service = retrofit.create(PokemonService::class.java)
+        service = retrofit.create(PokemonService::class.java)
     }
-    fun listPokemons (limit: Int = 111): PokemonsApiResult?{
+
+    fun listPokemons(limit: Int = 111): PokemonsApiResult? {
         val call = service.listPokemons(limit)
 
 
         return call.execute().body()
-//        call.enqueue(object : Callback<PokemonsApiResult> {
-//            override fun onResponse(
-//                call: Call<PokemonsApiResult>,
-//                response: Response<PokemonsApiResult>
-//            ) {
-//                if(response.isSuccessful){
-//                    val body = response.body()
-//
-//                    body?.results?.let {
-//                        Log.d("POKEMON_API", it[0].name)
-//                    }
-//                }
-//                Log.e("POKEMONS_API", "Pokemons carregados")
-//            }
-//
-//            override fun onFailure(call: Call<PokemonsApiResult>, t: Throwable) {
-//                Log.e("POKEMON_API", "erro ao carregar pokemons", t)
-//            }
-//        })
+
+    }
+
+    fun getPokemon(number: Int): PokemonApiResult? {
+        val call = service.getPokemon(number)
+
+
+        return call.execute().body()
+
     }
 }
